@@ -1,0 +1,1 @@
+/mnt/c/Users/james/OneDrive/Desktop/chess_pattern_visualiser/wasm_sim/target/wasm32-unknown-unknown/release/wasm_sim.wasm: /mnt/c/Users/james/OneDrive/Desktop/chess_pattern_visualiser/wasm_sim/src/lib.rs

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chess Spiral Pattern Visualiser</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Infinite spiral placement game</p>
+          <h1>Chess Pattern Visualiser</h1>
+          <p class="hero-copy">
+            Configure custom chess-like pieces, attack relationships, and shapes,
+            then watch the lowest safe spiral square fill turn by turn.
+          </p>
+          <div class="video-links" aria-label="Pattern explanation videos">
+            <a href="https://www.youtube.com/watch?v=UiX4CFIiegM" target="_blank" rel="noopener noreferrer">
+              Numberphile Video 1
+            </a>
+            <a href="https://www.youtube.com/watch?v=VgmDuBCayPw" target="_blank" rel="noopener noreferrer">
+              Numberphile Video 2
+            </a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <label for="turnSlider">Turns to simulate</label>
+          <div class="slider-row">
+            <input id="turnSlider" type="range" min="0" max="10000" step="1" value="4968" />
+            <input id="turnInput" type="number" min="0" max="10000000" value="3000" />
+          </div>
+          <button id="simulateButton" class="primary-button">Simulate</button>
+          <div class="settings-actions">
+            <button id="exportSettingsButton" class="ghost-button">Export settings</button>
+            <label class="file-button" for="importSettingsFile">Import settings</label>
+            <input id="importSettingsFile" type="file" accept="application/json,.json" />
+          </div>
+          <p id="settingsMessage" class="hint">Settings export includes shapes, matrix, pieces, and view options.</p>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="control-panel">
+          <div class="panel-block">
+            <div class="block-heading">
+              <h2>Piece Types</h2>
+              <span id="typeCountLabel">2 types</span>
+            </div>
+            <label for="typeCount">Number of piece types</label>
+            <input id="typeCount" type="range" min="1" max="16" value="2" />
+            <div id="pieceTypeControls" class="piece-type-list"></div>
+          </div>
+
+          <div class="panel-block">
+            <div class="block-heading">
+              <h2>Attack Matrix</h2>
+              <button id="matrixDefaultButton" class="ghost-button">Default</button>
+              <button id="matrixAllButton" class="ghost-button">All on</button>
+              <button id="matrixClearButton" class="ghost-button">Clear</button>
+            </div>
+            <p class="hint">
+              Rows are placed piece types. Columns are existing attacker types.
+              A checked cell means column type can block row type.
+            </p>
+            <div id="attackMatrix" class="matrix-wrap"></div>
+          </div>
+        </aside>
+
+        <section class="board-stage">
+          <div class="board-toolbar">
+            <div>
+              <h2>Spiral Board</h2>
+              <p id="summaryLine">Ready to simulate.</p>
+            </div>
+            <div class="toolbar-actions">
+              <label for="cellSize">Zoom</label>
+              <input id="cellSize" type="range" min="10" max="6400" value="100" />
+              <button id="fitToSizeButton" class="ghost-button">Fit to size</button>
+              <label class="checkbox-pill">
+                <input id="showLabels" type="checkbox" checked />
+                Labels
+              </label>
+              <label class="checkbox-pill">
+                <input id="showAttacks" type="checkbox" />
+                Attacks on selected
+              </label>
+              <select id="attackPreviewType" aria-label="Type for attack preview"></select>
+            </div>
+          </div>
+          <canvas id="boardCanvas" width="1060" height="760"></canvas>
+        </section>
+      </section>
+
+      <section class="shape-studio">
+        <div class="studio-copy">
+          <p class="eyebrow">Attack shape creator</p>
+          <h2>Build finite squares or infinite rays</h2>
+          <p>
+            Click the grid to toggle offsets. In finite mode a clicked square adds
+            <code>[dx, dy]</code>. In infinite mode it adds
+            <code>[dx, dy, "infinite"]</code>, previewed as a ray.
+          </p>
+        </div>
+        <div class="shape-tools">
+          <div class="shape-actions">
+            <select id="loadShapeSelect" aria-label="Load shape into editor"></select>
+            <button id="loadShapeButton" class="ghost-button">Load shape</button>
+            <input id="shapeName" type="text" placeholder="Custom shape name" />
+            <button id="finiteMode" class="mode-button active">Finite square</button>
+            <button id="infiniteMode" class="mode-button">Infinite ray</button>
+            <button id="saveShapeButton" class="primary-button">Save shape</button>
+            <button id="clearShapeButton" class="ghost-button">Clear editor</button>
+          </div>
+          <div class="shape-editor-layout">
+            <canvas id="shapeCanvas" width="520" height="520"></canvas>
+            <div class="shape-json-panel">
+              <label for="shapeJson">Shape tuples</label>
+              <textarea id="shapeJson" spellcheck="false"></textarea>
+              <p id="shapeMessage" class="hint">Default pieces are ready to use.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="wasm_loader.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
