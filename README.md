@@ -1,6 +1,6 @@
 # Chess Pattern Visualiser
 
-A dependency-free web visualiser for the spiral chess placement game.
+A dependency-free web visualiser for the spiral chess placement game made by Codex.
 
 ## Run
 
